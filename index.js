@@ -11,36 +11,27 @@ const client = new Client({
             '--no-sandbox', 
             '--disable-setuid-sandbox',
             '--disable-dev-shm-usage',
-            '--disable-accelerated-2d-canvas',
-            '--no-first-run',
-            '--no-zygote',
-            '--single-process',
-            '--disable-gpu'
-        ] 
+            '--single-process'
+        ],
+        executablePath: '/usr/bin/google-chrome-stable' 
     }
 });
 
 client.on('qr', (qr) => {
     qrcode.generate(qr, {small: true});
-    console.log('QR CODE GERADO ABAIXO:');
+    console.log('--- QR CODE GERADO ABAIXO ---');
 });
 
 client.on('ready', () => {
-    console.log('Flowzap 2.0 CONECTADO!');
-});
-
-app.get('/disparar', async (req, res) => {
-    const { numero, msg } = req.query;
-    try {
-        await client.sendMessage(`${numero}@c.us`, msg);
-        res.status(200).send('Enviado com sucesso!');
-    } catch (err) {
-        res.status(500).send('Erro no servidor');
-    }
+    console.log('Flowzap 2.0 CONECTADO COM SUCESSO!');
 });
 
 app.get('/', (req, res) => res.send('Servidor Flowzap Ativo!'));
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Rodando na porta ${PORT}`));
+// Ajuste da Porta para o Render não dar Timeout
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Motor rodando na porta ${PORT}`);
+});
+
 client.initialize();
