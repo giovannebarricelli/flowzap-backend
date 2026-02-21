@@ -25,9 +25,8 @@ client.on('ready', () => {
     console.log('Flowzap 2.0 CONECTADO COM SUCESSO!');
 });
 
-app.get('/', (req, res) => res.send('Servidor Flowzap Ativo!'));
+app.get('/', (req, res) => res.send('Servidor Ativo'));
 
-// Porta 10000 é essencial para o Render não dar erro
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, "0.0.0.0", () => {
     console.log(`Motor rodando na porta ${PORT}`);
